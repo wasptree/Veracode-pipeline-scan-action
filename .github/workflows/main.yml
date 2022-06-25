@@ -10,6 +10,17 @@ jobs:
         - name: checkout
           uses: actions/checkout@v2
 
+        - name: install node v12
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12
+        
+        - name: npm install
+          run: npm install
+
+        - name: transpile
+          run: tsc
+
         - name: pipeline-scan action step
           id: pipelien-scan
           uses: ./
