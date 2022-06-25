@@ -1,0 +1,19 @@
+on: [push]
+
+jobs:
+
+  pipeline_scan:
+      runs-on: ubuntu-latest
+      name: pipeline scan
+
+      steps:
+        - name: checkout
+          uses: actions/checkout@v2
+
+        - name: pipeline-scan action step
+          id: pipelien-scan
+          uses: ./
+          with:
+            vid: ${{ secrets.vkey }}
+            vkey: ${{ secrets.vid }}
+            file: "verademo.war" 
