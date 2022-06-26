@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { exec, execSync, spawn } from "child_process";
+import * as core from '@actions/core'
 import { countReset } from "console";
 import { stringify } from "querystring";
 
