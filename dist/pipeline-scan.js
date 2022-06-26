@@ -24,9 +24,10 @@ function downloadJar() {
     }
 }
 exports.downloadJar = downloadJar;
-function runScan(fileToScan) {
+function runScan(parameters) {
     try {
-        var scanCommand = `java -jar pipeline-scan.jar -vid ${vid} -vkey ${vkey} -f ` + fileToScan;
+        var scanCommand = `java -jar pipeline-scan.jar -vid ${parameters[vid]} -vkey ${parameters[vkey]} -f ` + parameters[file];
+        console.log('Pipeline-scan scan command: ' + scanCommand);
         var getScanCommandOutput = (0, child_process_1.execSync)(scanCommand).toString();
         console.log(getScanCommandOutput);
     }

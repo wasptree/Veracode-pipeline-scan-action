@@ -27,9 +27,10 @@ export function downloadJar ()  {
     }
 }
 
-export function runScan (fileToScan){
+export function runScan (parameters){
     try {
-        var scanCommand = `java -jar pipeline-scan.jar -vid ${vid} -vkey ${vkey} -f `+fileToScan
+        var scanCommand = `java -jar pipeline-scan.jar -vid ${parameters[vid]} -vkey ${parameters[vkey]} -f `+parameters[file]
+        console.log('Pipeline-scan scan command: '+scanCommand)
         var getScanCommandOutput = execSync(scanCommand).toString();
         console.log(getScanCommandOutput)
     }
