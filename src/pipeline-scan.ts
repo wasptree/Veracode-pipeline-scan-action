@@ -32,11 +32,11 @@ export function downloadJar ()  {
 export function runScan (parameters){
     core.info('start scanning')
     core.info('with parametees: '+parameters)
-    var scanCommand = 'java -jar pipeline-scan.jar -vid '+parameters[vid]+' -vkey '+parameters[vkey]+' -f '+parameters[file]
+    var scanCommand = 'java -jar pipeline-scan.jar -vid '+parameters['vid']+' -vkey '+parameters['vkey']+' -f '+parameters['file']
     core.info('Pipeline-scan scan command: '+scanCommand)
     try {
         core.info('inside the try')
-        var scanCommand = 'java -jar pipeline-scan.jar -vid '+parameters[vid]+' -vkey '+parameters[vkey]+' -f '+parameters[file]
+        var scanCommand = 'java -jar pipeline-scan.jar -vid '+parameters['vid']+' -vkey '+parameters['vkey']+' -f '+parameters['file']
         core.info('Pipeline-scan scan command: '+scanCommand)
         var getScanCommandOutput = execSync(scanCommand).toString();
         core.info(getScanCommandOutput)
