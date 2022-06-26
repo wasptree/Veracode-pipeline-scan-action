@@ -49,16 +49,7 @@ function runScan(parameters) {
     core.info('with parametees: ' + parameters);
     var scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters[0] + ' -vkey ' + parameters[1] + ' -f ' + parameters[2];
     core.info('Pipeline-scan scan command: ' + scanCommand);
-    try {
-        core.info('inside the try');
-        var scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters[0] + ' -vkey ' + parameters[1] + ' -f ' + parameters[2];
-        core.info('Pipeline-scan scan command: ' + scanCommand);
-        var getScanCommandOutput = (0, child_process_1.execSync)(scanCommand).toString();
-        core.info(getScanCommandOutput);
-    }
-    catch (error) {
-        core.info(`Status Code: ${error.status} with '${error.message}'`);
-        core.info("pipeline-scan didn't run");
-    }
+    var getScanCommandOutput = (0, child_process_1.execSync)(scanCommand).toString();
+    core.info(getScanCommandOutput);
 }
 exports.runScan = runScan;
