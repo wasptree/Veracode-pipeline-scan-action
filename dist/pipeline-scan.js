@@ -47,11 +47,11 @@ exports.downloadJar = downloadJar;
 function runScan(parameters) {
     core.info('start scanning');
     core.info('with parametees: ' + parameters);
-    var scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters['vid'] + ' -vkey ' + parameters['vkey'] + ' -f ' + parameters['file'];
+    var scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters[0] + ' -vkey ' + parameters[1] + ' -f ' + parameters[2];
     core.info('Pipeline-scan scan command: ' + scanCommand);
     try {
         core.info('inside the try');
-        var scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters['vid'] + ' -vkey ' + parameters['vkey'] + ' -f ' + parameters['file'];
+        var scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters[0] + ' -vkey ' + parameters[1] + ' -f ' + parameters[2];
         core.info('Pipeline-scan scan command: ' + scanCommand);
         var getScanCommandOutput = (0, child_process_1.execSync)(scanCommand).toString();
         core.info(getScanCommandOutput);
