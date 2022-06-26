@@ -37,7 +37,7 @@ export function runScan (parameters){
     core.info('Pipeline-scan scan command: '+scanCommand)
   
     var spawn = require('child_process').spawn;
-    var getScanCommandOutput = spawn(scanCommand);
+    var getScanCommandOutput = spawn('sh',['-c', scanCommand],{stdio:"pipe",});
     //spit stdout to screen
     core.info( getScanCommandOutput.stdout.on('data', function (data) {   process.stdout.write(data.toString());  }) )
     //spit stderr to screen
