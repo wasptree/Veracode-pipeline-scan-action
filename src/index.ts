@@ -3,6 +3,9 @@ import * as core from '@actions/core'
 import { downloadJar } from "./pipeline-scan";
 import { runScan } from "./pipeline-scan";
 
+const core = require('@actions/core');
+
+
 // get input params
 const parameters = []
 const vid = core.getInput('vid', {required: true} );
@@ -12,7 +15,6 @@ parameters.push(vkey)
 const file = core.getInput('file', {required: true} );
 parameters.push(file)
 
-console.log(parameters)
 
 function run (parameters){
     downloadJar()
