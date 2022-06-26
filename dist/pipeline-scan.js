@@ -57,8 +57,9 @@ function runScan(parameters) {
     //spit stderr to screen
     core.info('2. output');
     core.info(getScanCommandOutput.stderr.on('data', function (data) { process.stdout.write(data.toString()); }));
-    getScanCommandOutput.on('close', function (code) {
-        core.info("Finished with code " + code);
+    getScanCommandOutput.on('close', (code) => {
+        core.info(`Scan finished with exit code:  ${code}`);
+        core.info('Finish command');
     });
 }
 exports.runScan = runScan;
