@@ -16,8 +16,6 @@ const file = core.getInput('file', {required: true} );
 parameters.push(file)
 
 core.info(parameters)
-console.log(parameters)
-
 
 function run (parameters){
     downloadJar()

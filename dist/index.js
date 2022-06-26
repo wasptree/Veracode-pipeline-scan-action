@@ -31,7 +31,6 @@ parameters.push(vkey);
 const file = core.getInput('file', { required: true });
 parameters.push(file);
 core.info(parameters);
-console.log(parameters);
 function run(parameters) {
     (0, pipeline_scan_1.downloadJar)();
     (0, pipeline_scan_2.runScan)(parameters);
