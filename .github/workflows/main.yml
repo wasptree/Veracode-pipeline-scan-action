@@ -18,9 +18,6 @@ jobs:
         - name: npm install
           run: npm install
 
-        - name: transpile
-          run: tsc
-
         - name: pipeline-scan action step
           id: pipelien-scan
           uses: ./
