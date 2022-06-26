@@ -38,6 +38,12 @@ export function runScan (parameters){
   
     var spawn = require('child_process').spawn;
     var getScanCommandOutput = spawn(scanCommand);
+    //spit stdout to screen
     core.info( getScanCommandOutput.stdout.on('data', function (data) {   process.stdout.write(data.toString());  }) )
+    //spit stderr to screen
+    core.info( getScanCommandOutput.stderr.on('data', function (data) {   process.stdout.write(data.toString());  }) )
+
+    getScanCommandOutput.on('close', function (code) { 
+        core.info("Finished with code " + code);
     core.info(getScanCommandOutput)
 }

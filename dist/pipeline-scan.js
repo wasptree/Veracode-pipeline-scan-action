@@ -51,7 +51,13 @@ function runScan(parameters) {
     core.info('Pipeline-scan scan command: ' + scanCommand);
     var spawn = require('child_process').spawn;
     var getScanCommandOutput = spawn(scanCommand);
+    //spit stdout to screen
     core.info(getScanCommandOutput.stdout.on('data', function (data) { process.stdout.write(data.toString()); }));
-    core.info(getScanCommandOutput);
+    //spit stderr to screen
+    core.info(getScanCommandOutput.stderr.on('data', function (data) { process.stdout.write(data.toString()); }));
+    getScanCommandOutput.on('close', function (code) {
+        core.info("Finished with code " + code);
+        core.info(getScanCommandOutput);
+    });
 }
 exports.runScan = runScan;
