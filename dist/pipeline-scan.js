@@ -50,7 +50,7 @@ function runScan(parameters) {
     var scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters[0] + ' -vkey ' + parameters[1] + ' -f ' + parameters[2];
     core.info('Pipeline-scan scan command: ' + scanCommand);
     var execSync = require('child_process').execSync;
-    var getScanCommandOutput = execSync(scanCommand).toString();
+    var getScanCommandOutput = execSync(scanCommand);
     core.info(getScanCommandOutput.stdout.on('data', function (data) { process.stdout.write(data.toString()); }));
     core.info(getScanCommandOutput);
 }
