@@ -28,6 +28,7 @@ export function downloadJar ()  {
 }
 
 export function runScan (parameters){
+    console.log('start scanning')
     try {
         var scanCommand = `java -jar pipeline-scan.jar -vid ${parameters[vid]} -vkey ${parameters[vkey]} -f `+parameters[file]
         console.log('Pipeline-scan scan command: '+scanCommand)
