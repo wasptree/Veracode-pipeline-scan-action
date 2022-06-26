@@ -22,6 +22,6 @@ jobs:
           id: pipelien-scan
           uses: ./
           with:
-            vid: ${{ secrets.vid }}
-            vkey: ${{ secrets.vkey }}
+            vid: ${{ secrets.VID }}
+            vkey: ${{ secrets.VKEY }}
             file: "verademo.war" 
