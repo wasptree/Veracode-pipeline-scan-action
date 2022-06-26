@@ -23,7 +23,7 @@ const core = __importStar(require("@actions/core"));
 const pipeline_scan_1 = require("./pipeline-scan");
 const pipeline_scan_2 = require("./pipeline-scan");
 // get input params
-var parameters;
+var parameters = new Array;
 const vid = core.getInput('vid', { required: true });
 parameters.push(vid);
 const vkey = core.getInput('vkey', { required: true });
