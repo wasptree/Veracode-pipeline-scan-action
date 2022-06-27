@@ -53,7 +53,7 @@ function runScan(parameters) {
     var getScanCommandOutput = spawn('sh', ['-c', scanCommand], { stdio: "pipe", });
     //spit stdout to screen
     //core.info('1. output')
-    core.info(getScanCommandOutput.stdout.on('data', function (data) { process.stdout.write(data.toString()); }));
+    getScanCommandOutput.stdout.on('data', function (data) { process.stdout.write(data.toString()); });
     //spit stderr to screen
     //core.info('2. output')
     //core.info( getScanCommandOutput.stderr.on('data', function (data) {   process.stdout.write(data.toString());  }) )
