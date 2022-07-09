@@ -25,11 +25,13 @@ function checkParameters(parameters) {
     core.info(JSON.stringify(parameters));
     if (parameters.run_method == "runScan") {
         core.info('simple run stage');
-        let command;
+        let command = "";
         Object.entries(parameters).forEach(([key, value], index) => {
             core.info(key, value, index);
-            command += "--" + key + " " + value;
-            core.info(command);
+            if (key != 'vid' || key != 'vkey' || key != 'run_method') {
+                command += " --" + key + " " + value;
+                core.info(command);
+            }
         });
     }
     else if (parameters.run_method == "storeBaseline") {

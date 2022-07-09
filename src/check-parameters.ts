@@ -6,12 +6,14 @@ export function checkParameters (parameters)  {
 
     if ( parameters.run_method == "runScan" ){
         core.info('simple run stage')
-        let command:string
+        let command:string = ""
 
         Object.entries(parameters).forEach(([key, value], index) => {
             core.info(key, value, index);
-            command += "--"+key+" "+value
-            core.info(command)
+            if ( key != 'vid' || key != 'vkey' || key != 'run_method') {
+                command += " --"+key+" "+value  
+                core.info(command)
+            }
         });
 
     }
