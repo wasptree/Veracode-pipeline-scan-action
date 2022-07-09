@@ -18,6 +18,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const check_parameters_1 = require("./check-parameters");
@@ -74,8 +83,10 @@ parameters['app_id'] = app_id;
 const development_stage = core.getInput('development_stage', { required: false });
 parameters['development_stage'] = development_stage;
 function run(parameters) {
-    (0, check_parameters_1.checkParameters)(parameters);
-    //downloadJar()
-    //runScan(parameters)
+    return __awaiter(this, void 0, void 0, function* () {
+        yield (0, check_parameters_1.checkParameters)(parameters);
+        //downloadJar()
+        //runScan(parameters)
+    });
 }
 run(parameters);

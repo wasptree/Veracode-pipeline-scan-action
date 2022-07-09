@@ -45,7 +45,7 @@ function checkParameters(parameters) {
                 yield (0, pipeline_scan_1.runScan)(policyCommand);
                 var policyFileName = parameters.request_policy.replace(/ /gi, "_");
                 core.info('Policy Filen Name: ' + policyFileName);
-                scanCommand += "--policy_file " + policyFileName;
+                scanCommand += " --policy_file " + policyFileName;
             }
             core.info('create pipeline-scan scan command');
             Object.entries(parameters).forEach(([key, value], index) => {
