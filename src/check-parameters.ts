@@ -6,7 +6,7 @@ export async function checkParameters (parameters)  {
 
     if ( parameters.run_method == "runScan" ){
         core.info('simple run stage')
-        let scanCommand:string = 'java -jar pipeline-scan.jar '+parameters.vid+' -vkey '+parameters.vkey
+        const scanCommand:string = 'java -jar pipeline-scan.jar '+parameters.vid+' -vkey '+parameters.vkey
         let policyCommand:string = ""
 
         if ( parameters.request_policy != ""){

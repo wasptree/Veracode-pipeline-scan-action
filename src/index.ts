@@ -87,6 +87,7 @@ parameters['development_stage'] = development_stage
 async function run (parameters){
     //downloadJar()
     await checkParameters(parameters)
+    core.info('Scan command to run: '+scanCommand)
     //runScan(parameters)
 
 }
