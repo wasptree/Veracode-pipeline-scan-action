@@ -13,7 +13,7 @@ export async function checkParameters (parameters)  {
             core.info('Policy file download required')
             policyCommand = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
             core.info('Policy Download command: '+policyCommand)
-            await runScan(policyCommand)
+            runScan(policyCommand)
             var policyFileName = parameters.request_policy.replace(/ /gi, "_")
             core.info('Policy Filen Name: '+policyFileName)
             scanCommand += " --policy_file "+policyFileName

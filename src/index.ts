@@ -85,10 +85,8 @@ parameters['development_stage'] = development_stage
 
 
 async function run (parameters){
-    await checkParameters(parameters)
-    
-    
     //downloadJar()
+    checkParameters(parameters)
     //runScan(parameters)
 
 }

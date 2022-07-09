@@ -84,8 +84,8 @@ const development_stage = core.getInput('development_stage', { required: false }
 parameters['development_stage'] = development_stage;
 function run(parameters) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, check_parameters_1.checkParameters)(parameters);
         //downloadJar()
+        (0, check_parameters_1.checkParameters)(parameters);
         //runScan(parameters)
     });
 }
