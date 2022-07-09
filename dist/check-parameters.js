@@ -21,8 +21,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkParameters = void 0;
 const core = __importStar(require("@actions/core"));
-function checkParameters() {
-    core.info(parameters);
+function checkParameters(parameters) {
+    core.info(JSON.stringify(parameters));
     if (parameters.type == "runScan") {
         core.info('run stage');
     }
