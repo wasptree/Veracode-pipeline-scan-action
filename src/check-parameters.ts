@@ -10,7 +10,7 @@ export function checkParameters (parameters)  {
         
         if ( parameters.request_policy != ""){
             core.info('Policy file download required')
-            command = 'java -jar -vid '+parameters.vid+' -vkey '+vkey+' --request_policy "'+parameters.request_policy+'"'
+            command = 'java -jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
             core.info('Policy Download command: '+command)
         }
         
