@@ -5,8 +5,6 @@ import { runScan } from "./pipeline-scan";
 import { checkParameters } from './check-parameters';
 
 // get input params
-
-
 let parameters = {}
 
 const vid = core.getInput('vid', {required: true} );
