@@ -21,6 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkParameters = void 0;
 const core = __importStar(require("@actions/core"));
+const pipeline_scan_1 = require("./pipeline-scan");
 function checkParameters(parameters) {
     core.info(JSON.stringify(parameters));
     if (parameters.run_method == "runScan") {
@@ -31,6 +32,7 @@ function checkParameters(parameters) {
             core.info('Policy file download required');
             policyCommand = 'java -jar -vid ' + parameters.vid + ' -vkey ' + parameters.vkey + ' --request_policy "' + parameters.request_policy + '"';
             core.info('Policy Download command: ' + policyCommand);
+            (0, pipeline_scan_1.runScan)(policyCommand);
         }
         Object.entries(parameters).forEach(([key, value], index) => {
             core.info(key, value, index);

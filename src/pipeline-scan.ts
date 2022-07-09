@@ -30,10 +30,7 @@ export function downloadJar ()  {
     }
 }
 
-export function runScan (parameters){
-    core.info('start scanning')
-    core.info('with parametees: '+parameters)
-    var scanCommand = 'java -jar pipeline-scan.jar -vid '+parameters[0]+' -vkey '+parameters[1]+' -f '+parameters[2]
+export function runScan (scanCommand){
     core.info('Pipeline-scan scan command: '+scanCommand)
   
     var spawn = require('child_process').spawn;
