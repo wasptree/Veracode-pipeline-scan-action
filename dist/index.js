@@ -85,7 +85,7 @@ parameters['development_stage'] = development_stage;
 function run(parameters) {
     return __awaiter(this, void 0, void 0, function* () {
         //downloadJar()
-        (0, check_parameters_1.checkParameters)(parameters);
+        yield (0, check_parameters_1.checkParameters)(parameters);
         //runScan(parameters)
     });
 }
