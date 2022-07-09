@@ -3,11 +3,12 @@ import { runScan } from './pipeline-scan'
 
 export async function checkParameters (parameters)  {
     core.info(JSON.stringify(parameters))
+    let scanCommand:string = 'java -jar pipeline-scan.jar '+parameters.vid+' -vkey '+parameters.vkey
+    let policyCommand:string = ""
 
     if ( parameters.run_method == "runScan" ){
         core.info('simple run stage')
-        const scanCommand:string = 'java -jar pipeline-scan.jar '+parameters.vid+' -vkey '+parameters.vkey
-        let policyCommand:string = ""
+        
 
         if ( parameters.request_policy != ""){
             core.info('Policy file download required')
@@ -34,6 +35,6 @@ export async function checkParameters (parameters)  {
 
     }
 
-
+    return scanCommand
 }
 

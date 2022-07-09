@@ -34,10 +34,10 @@ const pipeline_scan_1 = require("./pipeline-scan");
 function checkParameters(parameters) {
     return __awaiter(this, void 0, void 0, function* () {
         core.info(JSON.stringify(parameters));
+        let scanCommand = 'java -jar pipeline-scan.jar ' + parameters.vid + ' -vkey ' + parameters.vkey;
+        let policyCommand = "";
         if (parameters.run_method == "runScan") {
             core.info('simple run stage');
-            const scanCommand = 'java -jar pipeline-scan.jar ' + parameters.vid + ' -vkey ' + parameters.vkey;
-            let policyCommand = "";
             if (parameters.request_policy != "") {
                 core.info('Policy file download required');
                 policyCommand = 'java -jar pipeline-scan.jar -vid ' + parameters.vid + ' -vkey ' + parameters.vkey + ' --request_policy "' + parameters.request_policy + '"';
@@ -59,6 +59,7 @@ function checkParameters(parameters) {
         else if (parameters.run_method == "storeBaseline") {
             core.info('baseline file stage');
         }
+        return scanCommand;
     });
 }
 exports.checkParameters = checkParameters;
