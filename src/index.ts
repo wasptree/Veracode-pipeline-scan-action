@@ -21,9 +21,9 @@ parameters['vkey'] = vkey
 const file = core.getInput('file', {required: true} );
 //parameters.push(file)
 parameters['file'] = file
-const type = core.getInput('type', {required: true} );
+const run_type = core.getInput('run_type', {required: true} );
 //parameters.push(type)
-parameters['type'] = type
+parameters['run_type'] = run_type
 const request_policy = core.getInput('request_policy', {required: false} );
 //parameters.push(request_policy)
 parameters['request_policy'] = request_policy
