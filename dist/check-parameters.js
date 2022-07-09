@@ -23,10 +23,10 @@ exports.checkParameters = void 0;
 const core = __importStar(require("@actions/core"));
 function checkParameters(parameters) {
     core.info(JSON.stringify(parameters));
-    if (parameters.run_type == "runScan") {
+    if (parameters.run_method == "runScan") {
         core.info('run stage');
     }
-    else if (parameters.run_type == "storeBaseline") {
+    else if (parameters.run_method == "storeBaseline") {
         core.info('baseline file stage');
     }
 }
