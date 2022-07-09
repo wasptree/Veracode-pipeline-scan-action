@@ -25,7 +25,7 @@ function checkParameters(parameters) {
     core.info(JSON.stringify(parameters));
     if (parameters.run_method == "runScan") {
         core.info('simple run stage');
-        let scanCommand = "";
+        let scanCommand = 'java -jar ' + parameters.vid + ' -vkey ' + parameters.vkey;
         let policyCommand = "";
         if (parameters.request_policy != "") {
             core.info('Policy file download required');
@@ -34,7 +34,7 @@ function checkParameters(parameters) {
         }
         Object.entries(parameters).forEach(([key, value], index) => {
             core.info(key, value, index);
-            if (key != 'vid' && key != 'vkey' && key != 'run_method' && key != 'request_policy') {
+            if (key != 'vid' && key != 'vkey' && key != 'run_method' && key != 'request_policy' && key != "") {
                 scanCommand += " --" + key + " " + value;
                 core.info(scanCommand);
             }
