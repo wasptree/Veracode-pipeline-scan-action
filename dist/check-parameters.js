@@ -35,7 +35,6 @@ function checkParameters(parameters) {
             (0, pipeline_scan_1.runScan)(policyCommand);
         }
         Object.entries(parameters).forEach(([key, value], index) => {
-            core.info(key, value, index);
             if (key != 'vid' && key != 'vkey' && key != 'run_method' && key != 'request_policy' && value != "") {
                 scanCommand += " --" + key + " " + value;
                 core.info(scanCommand);
