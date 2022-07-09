@@ -25,4 +25,5 @@ jobs:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
             file: "verademo.war" 
-            #run_method: "runScan"
+            run_method: "runScan"
+            request_policy: "Verademo Policy"
