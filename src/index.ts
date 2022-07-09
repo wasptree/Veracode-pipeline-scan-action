@@ -90,10 +90,6 @@ parameters['development_stage'] = development_stage
 
 
 
-
-
-core.info(parameters)
-
 function run (parameters){
     checkParameters(parameters)
     

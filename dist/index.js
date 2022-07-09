@@ -99,7 +99,6 @@ parameters['app_id'] = app_id;
 const development_stage = core.getInput('development_stage', { required: false });
 //parameters.push(development_stage)
 parameters['development_stage'] = development_stage;
-core.info(parameters);
 function run(parameters) {
     (0, check_parameters_1.checkParameters)(parameters);
     //downloadJar()
