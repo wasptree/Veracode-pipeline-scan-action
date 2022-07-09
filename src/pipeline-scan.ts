@@ -30,7 +30,7 @@ export function downloadJar ()  {
     }
 }
 
-export function runScan (scanCommand){
+export async function runScan (scanCommand){
     core.info('Pipeline-scan scan command: '+scanCommand)
   
     var spawn = require('child_process').spawn;

@@ -16,9 +16,8 @@ export async function checkParameters (parameters)  {
             await runScan(policyCommand)
         }
         
-
+        core.info('create pipeline-scan scan command')
         Object.entries(parameters).forEach(([key, value], index) => {
-            core.info('create pipeline-scan scan command')
             if ( key != 'vid' && key != 'vkey' && key != 'run_method' && key != 'request_policy' && value != "") {
                 scanCommand += " --"+key+" "+value  
                 core.info(scanCommand)

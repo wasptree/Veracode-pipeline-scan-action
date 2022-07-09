@@ -19,6 +19,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runScan = exports.downloadJar = void 0;
 const child_process_1 = require("child_process");
@@ -45,13 +54,15 @@ function downloadJar() {
 }
 exports.downloadJar = downloadJar;
 function runScan(scanCommand) {
-    core.info('Pipeline-scan scan command: ' + scanCommand);
-    var spawn = require('child_process').spawn;
-    var getScanCommandOutput = spawn('sh', ['-c', scanCommand], { stdio: "pipe", });
-    getScanCommandOutput.stdout.on('data', function (data) { process.stdout.write(data.toString()); });
-    getScanCommandOutput.on('close', (code) => {
-        core.info(`Scan finished with exit code:  ${code}`);
-        core.info('Finish command');
+    return __awaiter(this, void 0, void 0, function* () {
+        core.info('Pipeline-scan scan command: ' + scanCommand);
+        var spawn = require('child_process').spawn;
+        var getScanCommandOutput = spawn('sh', ['-c', scanCommand], { stdio: "pipe", });
+        getScanCommandOutput.stdout.on('data', function (data) { process.stdout.write(data.toString()); });
+        getScanCommandOutput.on('close', (code) => {
+            core.info(`Scan finished with exit code:  ${code}`);
+            core.info('Finish command');
+        });
     });
 }
 exports.runScan = runScan;
