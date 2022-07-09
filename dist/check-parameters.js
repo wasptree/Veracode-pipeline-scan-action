@@ -36,7 +36,7 @@ function checkParameters(parameters) {
         core.info(JSON.stringify(parameters));
         if (parameters.run_method == "runScan") {
             core.info('simple run stage');
-            let scanCommand = 'java -jar pipeline-scan.jar ' + parameters.vid + ' -vkey ' + parameters.vkey;
+            const scanCommand = 'java -jar pipeline-scan.jar ' + parameters.vid + ' -vkey ' + parameters.vkey;
             let policyCommand = "";
             if (parameters.request_policy != "") {
                 core.info('Policy file download required');

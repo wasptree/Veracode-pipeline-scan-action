@@ -86,6 +86,7 @@ function run(parameters) {
     return __awaiter(this, void 0, void 0, function* () {
         //downloadJar()
         yield (0, check_parameters_1.checkParameters)(parameters);
+        core.info('Scan command to run: ' + scanCommand);
         //runScan(parameters)
     });
 }
