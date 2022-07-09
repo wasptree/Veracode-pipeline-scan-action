@@ -6,20 +6,21 @@ export function checkParameters (parameters)  {
 
     if ( parameters.run_method == "runScan" ){
         core.info('simple run stage')
-        let command:string = ""
+        let scanCommand:string = ""
+        let policyCommand:string = ""
         
         if ( parameters.request_policy != ""){
             core.info('Policy file download required')
-            command = 'java -jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
-            core.info('Policy Download command: '+command)
+            policyCommand = 'java -jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
+            core.info('Policy Download command: '+policyCommand)
         }
         
 
         Object.entries(parameters).forEach(([key, value], index) => {
             core.info(key, value, index);
             if ( key != 'vid' && key != 'vkey' && key != 'run_method' && key != 'request_policy') {
-                command += " --"+key+" "+value  
-                core.info(command)
+                scanCommand += " --"+key+" "+value  
+                core.info(scanCommand)
             }
         });
 
