@@ -6,12 +6,12 @@ export async function checkParameters (parameters)  {
 
     if ( parameters.run_method == "runScan" ){
         core.info('simple run stage')
-        let scanCommand:string = 'java -jar '+parameters.vid+' -vkey '+parameters.vkey
+        let scanCommand:string = 'java -jar pipeline-scan.jar '+parameters.vid+' -vkey '+parameters.vkey
         let policyCommand:string = ""
 
         if ( parameters.request_policy != ""){
             core.info('Policy file download required')
-            policyCommand = 'java -jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
+            policyCommand = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
             core.info('Policy Download command: '+policyCommand)
             await runScan(policyCommand)
         }
