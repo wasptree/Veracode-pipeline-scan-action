@@ -109,7 +109,7 @@ parameters['create_baseline_from'] = create_baseline_from
 
 
 async function run (parameters){
-    //downloadJar()
+    downloadJar()
     let scanCommandValue = await checkParameters(parameters)
 
     if (parameters.debug == 1 ){

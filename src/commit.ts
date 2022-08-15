@@ -9,10 +9,20 @@ export function commitBasline (parameters)  {
     }
     else {
         core.info('Creating git command to push file')
-        const gitCommand = `git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+
+        let baselineFileName = ""
+        if( parameters.create_baseline_from == "standard"){
+            baselineFileName = "results.json"
+        }
+        else if ( parameters.create_baseline_from == "filtered" ){
+            baselineFileName = "filtered_results.json"
+        }
+
+
+        const gitCommand = `git config --global user.name "${ env.CI_COMMIT_AUTHOR }"
                             git config --global user.email "username@users.noreply.github.com"
                             git pull
-                            git add -f "${VERACODE_BASELINE_FILEPATH}"
+                            git add -f "${baselineFileName}"
                             git commit -a -m "Veracode Baseline File push from pipeline"
                             git push origin HEAD:"${parameters.store_baseline_file_branch}"
                             `

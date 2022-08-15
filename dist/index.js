@@ -30,7 +30,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const pipeline_scan_1 = require("./pipeline-scan");
+const pipeline_scan_2 = require("./pipeline-scan");
 const check_parameters_1 = require("./check-parameters");
+const commit_1 = require("./commit");
 // get input params
 let parameters = {};
 const vid = core.getInput('vid', { required: true });
@@ -100,7 +102,7 @@ parameters['create_baseline_from'] = create_baseline_from;
 //standard or filtered 
 function run(parameters) {
     return __awaiter(this, void 0, void 0, function* () {
-        //downloadJar()
+        (0, pipeline_scan_1.downloadJar)();
         let scanCommandValue = yield (0, check_parameters_1.checkParameters)(parameters);
         if (parameters.debug == 1) {
             core.info('---- DEBUG OUTPUT START ----');
@@ -108,8 +110,13 @@ function run(parameters) {
             core.info('Pipeline Scan Command: ' + scanCommandValue);
             core.info('---- DEBUG OUTPUT END ----');
         }
-        let scanCommandOutput = yield (0, pipeline_scan_1.runScan)(scanCommandValue, parameters);
+        let scanCommandOutput = yield (0, pipeline_scan_2.runScan)(scanCommandValue, parameters);
+        core.info('Pipeline Scan Output');
         core.info(scanCommandOutput);
+        if (parameters.store_baseline_file == 'true') {
+            core.info('Baseline File should be stored');
+            let commitCommandOutput = yield (0, commit_1.commitBasline)(parameters);
+        }
     });
 }
 run(parameters);
