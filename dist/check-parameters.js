@@ -66,7 +66,7 @@ function checkParameters(parameters) {
                     core.info('Parameter: ' + key + ' value: ' + value);
                     core.info('---- DEBUG OUTPUT END ----');
                 }
-                if (key != "debug") {
+                if (key != "debug" && key != "store_baseline_file" && key != "store_baseline_file_branch" && key != "create_baseline_from") {
                     scanCommand += " --" + key + " " + value;
                 }
                 if (parameters.debug == 1) {
