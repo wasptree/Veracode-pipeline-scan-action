@@ -29,6 +29,7 @@ export function commitBasline (parameters)  {
             core.info('---- DEBUG OUTPUT END ----')
         }
 
+        
         let gitCommand = `git config --global user.name "${ process.env.CI_COMMIT_AUTHOR }"
                             git config --global user.email "username@users.noreply.github.com"
                             git pull
