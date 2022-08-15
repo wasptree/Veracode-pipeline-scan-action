@@ -14,8 +14,6 @@ export async function checkParameters (parameters):Promise<string>  {
 
     let scanCommand:string = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' -jf pipeline.json -fjf filtered_results.json'
     let policyCommand:string = ""
-
-    core.info('simple run stage')
        
     if ( parameters.request_policy != ""){
         core.info('Policy file download required')
