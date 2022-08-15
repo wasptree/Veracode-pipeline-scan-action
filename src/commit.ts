@@ -18,6 +18,7 @@ export function commitBasline (parameters)  {
             baselineFileName = "filtered_results.json"
         }
 
+        core.info('Baseline from : '+baselineFileName)
 
         let gitCommand = `git config --global user.name "${ env.CI_COMMIT_AUTHOR }"
                             git config --global user.email "username@users.noreply.github.com"
