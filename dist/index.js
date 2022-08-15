@@ -29,6 +29,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
+const pipeline_scan_1 = require("./pipeline-scan");
 const check_parameters_1 = require("./check-parameters");
 // get input params
 let parameters = {};
@@ -38,8 +39,10 @@ const vkey = core.getInput('vkey', { required: true });
 parameters['vkey'] = vkey;
 const file = core.getInput('file', { required: true });
 parameters['file'] = file;
-const run_method = core.getInput('run_method', { required: true });
-parameters['run_method'] = run_method;
+/*
+const run_method = core.getInput('run_method', {required: true} );
+parameters['run_method'] = run_method
+*/
 const request_policy = core.getInput('request_policy', { required: false });
 parameters['request_policy'] = request_policy;
 const fail_on_severity = core.getInput('fail_on_severity', { required: false });
@@ -68,26 +71,45 @@ const summary_output_file = core.getInput('summary_output_file', { required: fal
 parameters['summary_output_file'] = summary_output_file;
 const json_output = core.getInput('json_output', { required: false });
 parameters['json_output'] = json_output;
-const json_output_file = core.getInput('json_output_file', { required: false });
-parameters['json_output_file'] = json_output_file;
-const filtered_json_output_file = core.getInput('filtered_json_output_file', { required: false });
-parameters['filtered_json_output_file'] = filtered_json_output_file;
+/*
+const json_output_file = core.getInput('json_output_file', {required: false} );
+parameters['json_output_file'] = json_output_file
+
+const filtered_json_output_file = core.getInput('filtered_json_output_file', {required: false} );
+parameters['filtered_json_output_file'] = filtered_json_output_file
+*/
 const project_name = core.getInput('project_name', { required: false });
 parameters['project_name'] = project_name;
 const project_url = core.getInput('project_url', { required: false });
 parameters['project_url'] = project_url;
 const project_ref = core.getInput('project_ref', { required: false });
-parameters['fiproject_refle'] = project_ref;
+parameters['project_ref'] = project_ref;
 const app_id = core.getInput('app_id', { required: false });
 parameters['app_id'] = app_id;
 const development_stage = core.getInput('development_stage', { required: false });
 parameters['development_stage'] = development_stage;
+const debug = core.getInput('debug', { required: false });
+parameters['debug'] = debug;
+const store_baseline_file = core.getInput('store_baseline_file', { required: false });
+parameters['store_baseline_file'] = store_baseline_file;
+//true or false
+const store_baseline_file_branch = core.getInput('store_baseline_file_branch', { required: false });
+parameters['store_baseline_file_branch'] = store_baseline_file_branch;
+const create_baseline_from = core.getInput('create_baseline_from', { required: false });
+parameters['create_baseline_from'] = create_baseline_from;
+//standard or filtered 
 function run(parameters) {
     return __awaiter(this, void 0, void 0, function* () {
         //downloadJar()
-        yield (0, check_parameters_1.checkParameters)(parameters);
-        core.info('Scan command to run: ' + scanCommand);
-        //runScan(parameters)
+        let scanCommandValue = yield (0, check_parameters_1.checkParameters)(parameters);
+        if (parameters.debug == 1) {
+            core.info('---- DEBUG OUTPUT START ----');
+            core.info('---- index.ts / run() before run ----');
+            core.info('Pipeline Scan Command: ' + scanCommandValue);
+            core.info('---- DEBUG OUTPUT END ----');
+        }
+        let scanCommandOutput = yield (0, pipeline_scan_1.runScan)(scanCommandValue, parameters);
+        core.info(scanCommandOutput);
     });
 }
 run(parameters);

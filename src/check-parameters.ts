@@ -1,38 +1,71 @@
 import * as core from '@actions/core'
-import { runScan } from './pipeline-scan'
+import { runScan, getPolicyFile } from './pipeline-scan'
 
-export async function checkParameters (parameters)  {
-    core.info(JSON.stringify(parameters))
-    let scanCommand:string = 'java -jar pipeline-scan.jar '+parameters.vid+' -vkey '+parameters.vkey
+
+export async function checkParameters (parameters):Promise<string>  {
+
+
+    if (parameters.debug == 1 ){
+        core.info('---- DEBUG OUTPUT START ----')
+        core.info('---- check-parameters.ts / checkParameters() ----')
+        core.info(JSON.stringify(parameters))
+        core.info('---- DEBUG OUTPUT END ----')
+    }
+
+    let scanCommand:string = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' -jf pipeline.json -fjf filtered_results.json'
     let policyCommand:string = ""
 
-    if ( parameters.run_method == "runScan" ){
-        core.info('simple run stage')
-        
+    core.info('simple run stage')
+       
+    if ( parameters.request_policy != ""){
+        core.info('Policy file download required')
+        policyCommand = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
+        const policyDownloadOutput = await getPolicyFile(policyCommand,parameters)
 
-        if ( parameters.request_policy != ""){
-            core.info('Policy file download required')
-            policyCommand = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' --request_policy "'+parameters.request_policy+'"'
+        if (parameters.debug == 1 ){
+            core.info('---- DEBUG OUTPUT START ----')
+            core.info('---- check-parameters.ts / checkParameters() - if request policy == true ----')
             core.info('Policy Download command: '+policyCommand)
-            const policyDownloadOutput = await runScan(policyCommand)
             core.info('Policy Downlaod Output: '+policyDownloadOutput)
-            var policyFileName = parameters.request_policy.replace(/ /gi, "_")
-            core.info('Policy Filen Name: '+policyFileName)
-            scanCommand += " --policy_file "+policyFileName
+            core.info('---- DEBUG OUTPUT END ----')
         }
-        
-        core.info('create pipeline-scan scan command')
-        Object.entries(parameters).forEach(([key, value], index) => {
-            if ( key != 'vid' && key != 'vkey' && key != 'run_method' && key != 'request_policy' && value != "") {
-                scanCommand += " --"+key+" "+value  
-                core.info(scanCommand)
-            }
-        });
 
+            
+        var policyFileName = parameters.request_policy.replace(/ /gi, "_")
+        core.info('Policy Filen Name: '+policyFileName)
+        scanCommand += " --policy_file "+policyFileName+".json"
     }
-    else if ( parameters.run_method == "storeBaseline" ) {
-        core.info('baseline file stage')
+        
+    core.info('create pipeline-scan scan command')
+    Object.entries(parameters).forEach(([key, value], index) => {
+        if ( key != 'vid' && key != 'vkey' && key != 'run_method' && key != 'request_policy' && value != "") {
+                
+            if (parameters.debug == 1 ){
+                core.info('---- DEBUG OUTPUT START ----')
+                core.info('---- check-parameters.ts / checkParameters() - run full scan----')
+                core.info('Parameter: '+key+' value: '+value)
+                 core.info('---- DEBUG OUTPUT END ----')
+            }
+            if ( key != "debug" ) {
+                scanCommand += " --"+key+" "+value
+            }
 
+            if (parameters.debug == 1 ){
+                core.info('---- DEBUG OUTPUT START ----')
+                core.info('---- check-parameters.ts / checkParameters() - run full scan----')
+                core.info('Pipeline Scan Command: '+scanCommand)
+                core.info('---- DEBUG OUTPUT END ----')
+            }
+        }
+    });
+
+
+
+    if (parameters.debug == 1 ){
+        core.info('---- DEBUG OUTPUT START ----')
+        core.info('---- check-parameters.ts / checkParameters() - return value ----')
+        core.info('Pipeline Scan Command: '+scanCommand)
+        core.info('---- DEBUG OUTPUT END ----')
     }
 
     return scanCommand

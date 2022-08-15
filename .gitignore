@@ -1,3 +1,9 @@
 .DS_Store
 node_modules
 package-lock.json
+VeraDemo_Policy.json
+pipeline-baseline-file.json
+filtered_results.json
+.gitignore
+filtered_results.json
+results.json
