@@ -126,6 +126,8 @@ async function run (parameters){
     if ( parameters.store_baseline_file == 'true'){
         core.info('Baseline File should be stored')
         let commitCommandOutput = await commitBasline(parameters)
+        core.info('Git Command Output')
+        core.info(commitCommandOutput)
     }
 
 

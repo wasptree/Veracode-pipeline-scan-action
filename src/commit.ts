@@ -26,9 +26,13 @@ export function commitBasline (parameters)  {
                             git commit -a -m "Veracode Baseline File push from pipeline"
                             git push origin HEAD:"${parameters.store_baseline_file_branch}"
                             `
-        execSync(gitCommand)
-
-
+        let commandOutput = ''
+        try {
+            execSync(gitCommand)
+        } catch (ex){
+            commandOutput = ex.stdout.toString()
+        }
+        return commandOutput
     }
 
 

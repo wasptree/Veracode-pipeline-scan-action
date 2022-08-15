@@ -43,7 +43,14 @@ function commitBasline(parameters) {
                             git commit -a -m "Veracode Baseline File push from pipeline"
                             git push origin HEAD:"${parameters.store_baseline_file_branch}"
                             `;
-        (0, child_process_1.execSync)(gitCommand);
+        let commandOutput = '';
+        try {
+            (0, child_process_1.execSync)(gitCommand);
+        }
+        catch (ex) {
+            commandOutput = ex.stdout.toString();
+        }
+        return commandOutput;
     }
 }
 exports.commitBasline = commitBasline;

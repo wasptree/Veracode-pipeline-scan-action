@@ -116,6 +116,8 @@ function run(parameters) {
         if (parameters.store_baseline_file == 'true') {
             core.info('Baseline File should be stored');
             let commitCommandOutput = yield (0, commit_1.commitBasline)(parameters);
+            core.info('Git Command Output');
+            core.info(commitCommandOutput);
         }
     });
 }
