@@ -39,7 +39,7 @@ function checkParameters(parameters) {
             core.info('---- ' + JSON.stringify(parameters));
             core.info('---- DEBUG OUTPUT END ----');
         }
-        let scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters.vid + ' -vkey ' + parameters.vkey + ' -jf pipeline.json -fjf filtered_results.json';
+        let scanCommand = 'java -jar pipeline-scan.jar -vid ' + parameters.vid + ' -vkey ' + parameters.vkey + ' -jf results.json -fjf filtered_results.json';
         let policyCommand = "";
         if (parameters.request_policy != "") {
             core.info('Policy file download required');
