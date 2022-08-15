@@ -118,6 +118,8 @@ async function run (parameters){
         core.info('----Pipeline Scan Command: '+scanCommandValue)
         core.info('---- DEBUG OUTPUT END ----')
     }
+
+    core.info('Running the Pipeline Scan')
     let scanCommandOutput = await runScan(scanCommandValue,parameters)
 
     core.info('Pipeline Scan Output')
