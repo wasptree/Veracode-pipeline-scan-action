@@ -115,7 +115,7 @@ async function run (parameters){
     if (parameters.debug == 1 ){
         core.info('---- DEBUG OUTPUT START ----')
         core.info('---- index.ts / run() before run ----')
-        core.info('Pipeline Scan Command: '+scanCommandValue)
+        core.info('----Pipeline Scan Command: '+scanCommandValue)
         core.info('---- DEBUG OUTPUT END ----')
     }
     let scanCommandOutput = await runScan(scanCommandValue,parameters)

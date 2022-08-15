@@ -25,14 +25,13 @@ export function commitBasline (parameters)  {
         if (parameters.debug == 1 ){
             core.info('---- DEBUG OUTPUT START ----')
             core.info('---- commit.ts / commitBasline() ----')
-            core.info('Baseline file generated from '+baselineFileName)
+            core.info('---- Baseline file generated from '+baselineFileName)
             core.info('---- DEBUG OUTPUT END ----')
         }
 
         
         let gitCommand = `git config --global user.name "${ process.env.CI_COMMIT_AUTHOR }"
                             git config --global user.email "username@users.noreply.github.com"
-                            git pull
                             git add -f "${baselineFileName}"
                             git commit -a -m "Veracode Baseline File push from pipeline"
                             git push origin HEAD:"${parameters.store_baseline_file_branch}"
@@ -43,7 +42,7 @@ export function commitBasline (parameters)  {
         if (parameters.debug == 1 ){
             core.info('---- DEBUG OUTPUT START ----')
             core.info('---- commit.ts / commitBasline() ----')
-            core.info('Git Command: '+gitCommand)
+            core.info('---- Git Command: '+gitCommand)
             core.info('---- DEBUG OUTPUT END ----')
         }
         
