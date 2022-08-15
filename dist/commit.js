@@ -36,7 +36,14 @@ function commitBasline(parameters) {
         else if (parameters.create_baseline_from == "filtered") {
             baselineFileName = "filtered_results.json";
         }
-        let gitCommand = `git config --global user.name "${env.CI_COMMIT_AUTHOR}"
+        core.info('Baseline from : ' + baselineFileName);
+        if (parameters.debug == 1) {
+            core.info('---- DEBUG OUTPUT START ----');
+            core.info('---- commit.ts / commitBasline() ----');
+            core.info('Baseline file generated from ' + baselineFileName);
+            core.info('---- DEBUG OUTPUT END ----');
+        }
+        let gitCommand = `git config --global user.name "${process.env.CI_COMMIT_AUTHOR}"
                             git config --global user.email "username@users.noreply.github.com"
                             git pull
                             git add -f "${baselineFileName}"
