@@ -19,13 +19,24 @@ export function commitBasline (parameters)  {
         }
 
 
-        const gitCommand = `git config --global user.name "${ env.CI_COMMIT_AUTHOR }"
+        let gitCommand = `git config --global user.name "${ env.CI_COMMIT_AUTHOR }"
                             git config --global user.email "username@users.noreply.github.com"
                             git pull
                             git add -f "${baselineFileName}"
                             git commit -a -m "Veracode Baseline File push from pipeline"
                             git push origin HEAD:"${parameters.store_baseline_file_branch}"
                             `
+
+        core.info('Git Command: '+gitCommand)
+        
+        if (parameters.debug == 1 ){
+            core.info('---- DEBUG OUTPUT START ----')
+            core.info('---- commit.ts / commitBasline() ----')
+            core.info('Git Command: '+gitCommand)
+            core.info('---- DEBUG OUTPUT END ----')
+        }
+        
+        
         let commandOutput = ''
         try {
             execSync(gitCommand)
