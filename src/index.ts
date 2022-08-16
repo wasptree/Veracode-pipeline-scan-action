@@ -150,7 +150,7 @@ async function run (parameters){
 
         if ( failBuild >= 1 ){
             core.info('There are flaws found that require the build to fail')
-            core.setFailed('Veracode Pipeline Scan found flaws.')
+            core.setFailed(scanCommandOutput)
         }
     }
 
