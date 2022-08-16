@@ -85,6 +85,9 @@ inputs:
   create_baseline_from:
     description: 'From which results should the baseline file be created. standard = full results || filtered = filtered results'
     required: false
+  fail_build:
+    description: 'Fail the build upon findings. Takes true or false'
+    required: false
   
 runs:
   using: 'node12'

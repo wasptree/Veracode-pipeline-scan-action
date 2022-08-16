@@ -8,11 +8,11 @@ export async function checkParameters (parameters):Promise<string>  {
     if (parameters.debug == 1 ){
         core.info('---- DEBUG OUTPUT START ----')
         core.info('---- check-parameters.ts / checkParameters() ----')
-        core.info(JSON.stringify(parameters))
+        core.info('---- '+JSON.stringify(parameters))
         core.info('---- DEBUG OUTPUT END ----')
     }
 
-    let scanCommand:string = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' -jf pipeline.json -fjf filtered_results.json'
+    let scanCommand:string = 'java -jar pipeline-scan.jar -vid '+parameters.vid+' -vkey '+parameters.vkey+' -jf results.json -fjf filtered_results.json'
     let policyCommand:string = ""
        
     if ( parameters.request_policy != ""){
@@ -23,8 +23,8 @@ export async function checkParameters (parameters):Promise<string>  {
         if (parameters.debug == 1 ){
             core.info('---- DEBUG OUTPUT START ----')
             core.info('---- check-parameters.ts / checkParameters() - if request policy == true ----')
-            core.info('Policy Download command: '+policyCommand)
-            core.info('Policy Downlaod Output: '+policyDownloadOutput)
+            core.info('---- Policy Download command: '+policyCommand)
+            core.info('---- Policy Downlaod Output: '+policyDownloadOutput)
             core.info('---- DEBUG OUTPUT END ----')
         }
 
@@ -41,17 +41,17 @@ export async function checkParameters (parameters):Promise<string>  {
             if (parameters.debug == 1 ){
                 core.info('---- DEBUG OUTPUT START ----')
                 core.info('---- check-parameters.ts / checkParameters() - run full scan----')
-                core.info('Parameter: '+key+' value: '+value)
+                core.info('---- Parameter: '+key+' value: '+value)
                  core.info('---- DEBUG OUTPUT END ----')
             }
-            if ( key != "debug" && key != "store_baseline_file" && key != "store_baseline_file_branch" && key != "create_baseline_from" ) {
+            if ( key != "debug" && key != "store_baseline_file" && key != "store_baseline_file_branch" && key != "create_baseline_from" && key != "fail_build" ) {
                 scanCommand += " --"+key+" "+value
             }
 
             if (parameters.debug == 1 ){
                 core.info('---- DEBUG OUTPUT START ----')
                 core.info('---- check-parameters.ts / checkParameters() - run full scan----')
-                core.info('Pipeline Scan Command: '+scanCommand)
+                core.info('---- Pipeline Scan Command: '+scanCommand)
                 core.info('---- DEBUG OUTPUT END ----')
             }
         }
@@ -62,7 +62,7 @@ export async function checkParameters (parameters):Promise<string>  {
     if (parameters.debug == 1 ){
         core.info('---- DEBUG OUTPUT START ----')
         core.info('---- check-parameters.ts / checkParameters() - return value ----')
-        core.info('Pipeline Scan Command: '+scanCommand)
+        core.info('---- Pipeline Scan Command: '+scanCommand)
         core.info('---- DEBUG OUTPUT END ----')
     }
 

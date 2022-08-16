@@ -5,3 +5,5 @@ VeraDemo_Policy.json
 pipeline-baseline-file.json
 filtered_results.json
 results.json
+pipeline-scan-LATEST.zip
+pipeline-scan.jar

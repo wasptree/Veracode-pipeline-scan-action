@@ -100,6 +100,9 @@ parameters['store_baseline_file_branch'] = store_baseline_file_branch;
 const create_baseline_from = core.getInput('create_baseline_from', { required: false });
 parameters['create_baseline_from'] = create_baseline_from;
 //standard or filtered 
+const fail_build = core.getInput('fail_build', { required: false });
+parameters['fail_build'] = fail_build;
+//true or false 
 function run(parameters) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, pipeline_scan_1.downloadJar)();
@@ -107,9 +110,10 @@ function run(parameters) {
         if (parameters.debug == 1) {
             core.info('---- DEBUG OUTPUT START ----');
             core.info('---- index.ts / run() before run ----');
-            core.info('Pipeline Scan Command: ' + scanCommandValue);
+            core.info('---- Pipeline Scan Command: ' + scanCommandValue);
             core.info('---- DEBUG OUTPUT END ----');
         }
+        core.info('Running the Pipeline Scan');
         let scanCommandOutput = yield (0, pipeline_scan_2.runScan)(scanCommandValue, parameters);
         core.info('Pipeline Scan Output');
         core.info(scanCommandOutput);
@@ -118,6 +122,20 @@ function run(parameters) {
             let commitCommandOutput = yield (0, commit_1.commitBasline)(parameters);
             core.info('Git Command Output');
             core.info(commitCommandOutput);
+        }
+        if (parameters.fail_build == "true") {
+            core.info('Check if we need to fail the build');
+            let failBuild = scanCommandOutput.indexOf("FAILURE");
+            if (parameters.debug == 1) {
+                core.info('---- DEBUG OUTPUT START ----');
+                core.info('---- index.ts / run() check if we need to fail the build ----');
+                core.info('---- Fail build value found : ' + failBuild);
+                core.info('---- DEBUG OUTPUT END ----');
+            }
+            if (failBuild >= 1) {
+                core.info('There are flaws found that require the build to fail');
+                core.setFailed(scanCommandOutput);
+            }
         }
     });
 }
