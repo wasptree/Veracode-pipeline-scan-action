@@ -137,7 +137,7 @@ function run(parameters) {
             let pullRequest = process.env.GITHUB_REF;
             let isPR = pullRequest === null || pullRequest === void 0 ? void 0 : pullRequest.indexOf("pull");
             let context = github.context;
-            core.info('Context: ' + context);
+            core.info('Context: ' + JSON.stringify(context));
             if (isPR >= 1) {
                 core.info("This run is part of a PR, should add some PR annotation");
             }
