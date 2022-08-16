@@ -44,7 +44,7 @@ export async function checkParameters (parameters):Promise<string>  {
                 core.info('---- Parameter: '+key+' value: '+value)
                  core.info('---- DEBUG OUTPUT END ----')
             }
-            if ( key != "debug" && key != "store_baseline_file" && key != "store_baseline_file_branch" && key != "create_baseline_from" ) {
+            if ( key != "debug" && key != "store_baseline_file" && key != "store_baseline_file_branch" && key != "create_baseline_from" && key != "fail_build" ) {
                 scanCommand += " --"+key+" "+value
             }
 

@@ -105,6 +105,10 @@ const create_baseline_from = core.getInput('create_baseline_from', {required: fa
 parameters['create_baseline_from'] = create_baseline_from
 //standard or filtered 
 
+const fail_build = core.getInput('fail_build', {required: false} );
+parameters['fail_build'] = fail_build
+//true or false 
+
 
 
 
@@ -115,7 +119,7 @@ async function run (parameters){
     if (parameters.debug == 1 ){
         core.info('---- DEBUG OUTPUT START ----')
         core.info('---- index.ts / run() before run ----')
-        core.info('----Pipeline Scan Command: '+scanCommandValue)
+        core.info('---- Pipeline Scan Command: '+scanCommandValue)
         core.info('---- DEBUG OUTPUT END ----')
     }
 
@@ -132,6 +136,23 @@ async function run (parameters){
         core.info(commitCommandOutput)
     }
 
+    if ( parameters.fail_build == "true" ){
+        core.info('Check if we need to fail the build')
+        let failBuild = scanCommandOutput.indexOf("FAILURE")
+
+        if (parameters.debug == 1 ){
+            core.info('---- DEBUG OUTPUT START ----')
+            core.info('---- index.ts / run() check if we need to fail the build ----')
+            core.info('---- Fail build value found : '+failBuild)
+            core.info('---- DEBUG OUTPUT END ----')
+        }
+
+
+        if ( failBuild >= 1 ){
+            core.info('There are flaws found that require the build to fail')
+            core.setFailed('Veracode Pipeline Scan found flaws.')
+        }
+    }
 
 }
 

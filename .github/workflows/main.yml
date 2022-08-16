@@ -30,3 +30,4 @@ jobs:
             store_baseline_file_branch: "feature-123"
             create_baseline_from: "standard"
             debug: 1
+            fail_build: true
