@@ -33,6 +33,7 @@ const pipeline_scan_1 = require("./pipeline-scan");
 const pipeline_scan_2 = require("./pipeline-scan");
 const check_parameters_1 = require("./check-parameters");
 const commit_1 = require("./commit");
+const github = __importStar(require("@actions/github"));
 // get input params
 let parameters = {};
 const vid = core.getInput('vid', { required: true });
@@ -131,6 +132,14 @@ function run(parameters) {
                 core.info('---- index.ts / run() check if we need to fail the build ----');
                 core.info('---- Fail build value found : ' + failBuild);
                 core.info('---- DEBUG OUTPUT END ----');
+            }
+            core.info('check if we run on a pull request');
+            let pullRequest = process.env.GITHUB_REF;
+            let isPR = pullRequest === null || pullRequest === void 0 ? void 0 : pullRequest.indexOf("pull");
+            let context = github.context;
+            core.info('Context: ' + context);
+            if (isPR >= 1) {
+                core.info("This run is part of a PR, should add some PR annotation");
             }
             if (failBuild >= 1) {
                 core.info('There are flaws found that require the build to fail');

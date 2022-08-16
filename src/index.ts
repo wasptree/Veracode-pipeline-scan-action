@@ -6,6 +6,8 @@ import { checkParameters } from './check-parameters';
 import { commitBasline } from './commit';
 import { json } from 'stream/consumers';
 import { stringify } from 'querystring';
+import { env } from "process";
+import * as github from '@actions/github'
 
 // get input params
 let parameters = {}
@@ -145,6 +147,16 @@ async function run (parameters){
             core.info('---- index.ts / run() check if we need to fail the build ----')
             core.info('---- Fail build value found : '+failBuild)
             core.info('---- DEBUG OUTPUT END ----')
+        }
+
+        core.info('check if we run on a pull request')
+        let pullRequest = process.env.GITHUB_REF
+        let isPR = pullRequest?.indexOf("pull")
+        let context = github.context
+        core.info('Context: '+context)
+        if ( isPR >= 1 ){
+            core.info("This run is part of a PR, should add some PR annotation")
+            
         }
 
 
