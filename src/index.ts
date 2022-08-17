@@ -114,6 +114,7 @@ parameters['fail_build'] = fail_build
 
 
 
+
 async function run (parameters){
     downloadJar()
     let scanCommandValue = await checkParameters(parameters)
@@ -161,7 +162,7 @@ async function run (parameters){
         }
 
         try {
-            const octokit = github.getOctokit(token);
+            const octokit = github.getOctokit();
             const commentBody = scanCommandOutput + "\n";
 
             const { data: comment } = await octokit.rest.issues.createComment({
