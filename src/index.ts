@@ -142,14 +142,23 @@ async function run (parameters){
     let pullRequest = process.env.GITHUB_REF
     let isPR = pullRequest?.indexOf("pull")
     const context = github.context
-    //core.info('Context: '+JSON.stringify(context))
+    core.info('Context: '+JSON.stringify(context))
     if ( isPR >= 1 ){
         core.info("This run is part of a PR, should add some PR annotation")
 
         const repository = process.env.GITHUB_REPOSITORY
         const token = process.env.GITHUB_TOKEN
         const repo = repository.split("/");
-        const commentID = context.pull_request.number 
+        const commentID = context.payload.pull_request?.number
+
+        if (parameters.debug == 1 ){
+            core.info('---- DEBUG OUTPUT START ----')
+            core.info('---- index.ts / run() check if on PR  ----')
+            core.info('---- Repository: '+repository)
+            core.info('---- Token: '+token)
+            core.info('---- Comment ID: '+commentID)
+            core.info('---- DEBUG OUTPUT END ----')
+        }
 
         const octokit = github.getOctokit(token);
         const commentBody = scanCommandOutput + "\n";
