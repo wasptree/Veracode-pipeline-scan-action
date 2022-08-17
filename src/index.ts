@@ -138,6 +138,30 @@ async function run (parameters){
         core.info(commitCommandOutput)
     }
 
+    core.info('check if we run on a pull request')
+    let pullRequest = process.env.GITHUB_REF
+    let isPR = pullRequest?.indexOf("pull")
+    const context = github.context
+    //core.info('Context: '+JSON.stringify(context))
+    if ( isPR >= 1 ){
+        core.info("This run is part of a PR, should add some PR annotation")
+
+        const repository = process.env.GITHUB_REPOSITORY
+        const token = process.env.GITHUB_TOKEN
+        const repo = repository.split("/");
+        const commentID = context.pull_request.number 
+
+        const octokit = github.getOctokit(token);
+        const commentBody = scanCommandOutput + "\n";
+
+        const { data: comment } = await octokit.rest.issues.createComment({
+            owner: repo[0],
+            repo: repo[1],
+            issue_number: commentID,
+            body: commentBody,
+        });
+    }
+
     if ( parameters.fail_build == "true" ){
         core.info('Check if we need to fail the build')
         let failBuild = scanCommandOutput.indexOf("FAILURE")
@@ -146,33 +170,7 @@ async function run (parameters){
             core.info('---- DEBUG OUTPUT START ----')
             core.info('---- index.ts / run() check if we need to fail the build ----')
             core.info('---- Fail build value found : '+failBuild)
-            core.info('---- DEBUG OUTPUT END ----')
-        }
-
-        core.info('check if we run on a pull request')
-        let pullRequest = process.env.GITHUB_REF
-        let isPR = pullRequest?.indexOf("pull")
-        const context = github.context
-        //core.info('Context: '+JSON.stringify(context))
-        if ( isPR >= 1 ){
-            core.info("This run is part of a PR, should add some PR annotation")
-
-            const repository = process.env.GITHUB_REPOSITORY
-            const token = process.env.GITHUB_TOKEN
-            const repo = repository.split("/");
-            const commentID = context.pull_request.number 
-
-            const octokit = github.getOctokit(token);
-            const commentBody = scanCommandOutput + "\n";
-
-            const { data: comment } = await octokit.rest.issues.createComment({
-                owner: repo[0],
-                repo: repo[1],
-                issue_number: commentID,
-                body: commentBody,
-              });
-
-            
+            core.info('---- DEBUG OUTPUT END ----')     
         }
 
 
