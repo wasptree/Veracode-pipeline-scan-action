@@ -141,7 +141,7 @@ async function run (parameters){
     core.info('check if we run on a pull request')
     let pullRequest = process.env.GITHUB_REF
     let isPR = pullRequest?.indexOf("pull")
-    const context = github.context
+    //const context = github.context
     core.info('Context: '+JSON.stringify(context))
     if ( isPR >= 1 ){
         core.info("This run is part of a PR, should add some PR annotation")
@@ -160,15 +160,20 @@ async function run (parameters){
             core.info('---- DEBUG OUTPUT END ----')
         }
 
-        const octokit = github.getOctokit(token);
-        const commentBody = scanCommandOutput + "\n";
+        try {
+            const octokit = github.getOctokit(token);
+            const commentBody = scanCommandOutput + "\n";
 
-        const { data: comment } = await octokit.rest.issues.createComment({
-            owner: repo[0],
-            repo: repo[1],
-            issue_number: commentID,
-            body: commentBody,
-        });
+            const { data: comment } = await octokit.rest.issues.createComment({
+                owner: repo[0],
+                repo: repo[1],
+                issue_number: commentID,
+                body: commentBody,
+            });
+        } catch (error) {
+            core.info(error);
+        }
+
     }
 
     if ( parameters.fail_build == "true" ){
