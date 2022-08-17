@@ -158,6 +158,9 @@ function run(parameters) {
                 core.info(error);
             }
         }
+        else {
+            core.info('We are not running on a pull request');
+        }
         if (parameters.fail_build == "true") {
             core.info('Check if we need to fail the build');
             let failBuild = scanCommandOutput.indexOf("FAILURE");

@@ -162,7 +162,7 @@ async function run (parameters){
         }
 
         try {
-            const octokit = github.getOctokit();
+            const octokit = github.getOctokit(token);
             const commentBody = scanCommandOutput + "\n";
 
             const { data: comment } = await octokit.rest.issues.createComment({
@@ -175,6 +175,9 @@ async function run (parameters){
             core.info(error);
         }
 
+    }
+    else {
+        core.info('We are not running on a pull request')
     }
 
     if ( parameters.fail_build == "true" ){
