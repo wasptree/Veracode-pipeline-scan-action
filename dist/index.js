@@ -136,10 +136,22 @@ function run(parameters) {
             core.info('check if we run on a pull request');
             let pullRequest = process.env.GITHUB_REF;
             let isPR = pullRequest === null || pullRequest === void 0 ? void 0 : pullRequest.indexOf("pull");
-            let context = github.context;
-            core.info('Context: ' + JSON.stringify(context));
+            const context = github.context;
+            //core.info('Context: '+JSON.stringify(context))
             if (isPR >= 1) {
                 core.info("This run is part of a PR, should add some PR annotation");
+                const repository = process.env.GITHUB_REPOSITORY;
+                const token = process.env.GITHUB_TOKEN;
+                const repo = repository.split("/");
+                const commentID = context.pull_request.number;
+                const octokit = github.getOctokit(token);
+                const commentBody = scanCommandOutput + "\n";
+                const { data: comment } = yield octokit.rest.issues.createComment({
+                    owner: repo[0],
+                    repo: repo[1],
+                    issue_number: commentID,
+                    body: commentBody,
+                });
             }
             if (failBuild >= 1) {
                 core.info('There are flaws found that require the build to fail');
