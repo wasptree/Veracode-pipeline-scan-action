@@ -136,7 +136,7 @@ function run(parameters) {
             const repo = repository.split("/");
             const commentID = (_a = context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.number;
             //creating the body for the comment
-            let commentBody = "![](https://www.veracode.com/themes/veracode_new/library/img/veracode-black-hires.svg)<br>";
+            let commentBody = "The Veracode Pipleine Scan Results <br>![](https://www.veracode.com/themes/veracode_new/library/img/veracode-black-hires.svg)<br>";
             commentBody = commentBody + scanCommandOutput;
             commentBody = commentBody.substring(commentBody.indexOf('Scan Summary'));
             commentBody = commentBody.replace('===\n---', '===\n<details><summary>details</summary><p>\n---');
