@@ -133,7 +133,7 @@ function run(parameters) {
         if (isPR >= 1) {
             core.info("This run is part of a PR, should add some PR annotation");
             const repository = process.env.GITHUB_REPOSITORY;
-            const token = process.env.GITHUB_TOKEN;
+            const token = core.getInput("token");
             const repo = repository.split("/");
             const commentID = (_a = context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.number;
             if (parameters.debug == 1) {

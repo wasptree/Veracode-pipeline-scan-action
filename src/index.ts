@@ -148,7 +148,7 @@ async function run (parameters){
         core.info("This run is part of a PR, should add some PR annotation")
 
         const repository = process.env.GITHUB_REPOSITORY
-        const token = process.env.GITHUB_TOKEN
+        const token = core.getInput("token")
         const repo = repository.split("/");
         const commentID = context.payload.pull_request?.number
 
