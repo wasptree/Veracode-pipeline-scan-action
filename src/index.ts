@@ -142,7 +142,7 @@ async function run (parameters){
     core.info('check if we run on a pull request')
     let pullRequest = process.env.GITHUB_REF
     let isPR = pullRequest?.indexOf("pull")
-    //const context = github.context
+    const context = github.context
     //core.info('Context: '+JSON.stringify(context))
     if ( isPR >= 1 ){
         core.info("This run is part of a PR, should add some PR annotation")
