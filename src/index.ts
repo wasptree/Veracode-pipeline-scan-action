@@ -142,15 +142,24 @@ async function run (parameters){
     core.info('check if we run on a pull request')
     let pullRequest = process.env.GITHUB_REF
     let isPR = pullRequest?.indexOf("pull")
-    const context = github.context
-    //core.info('Context: '+JSON.stringify(context))
-    if ( isPR >= 1 ){
-        core.info("This run is part of a PR, should add some PR annotation")
 
+    if ( isPR >= 1 ){
+        core.info("This run is part of a PR, should add some PR comment")
+
+        const context = github.context
         const repository = process.env.GITHUB_REPOSITORY
         const token = core.getInput("token")
         const repo = repository.split("/");
         const commentID = context.payload.pull_request?.number
+
+
+        //creating the body for the comment
+        let commentBody = scanCommandOutput
+        commentBody = commentBody.substring(commentBody.indexOf('Scan Summary') + 1 )
+        commentBody = commentBody.replace('===\n---','===\n<details><summary>details</summary><p>\n---')
+        commentBody = commentBody.replace('---\n\n===','---\n</p></details>\n===')
+        commentBody = commentBody.replace('\n','<br>')
+
 
         if (parameters.debug == 1 ){
             core.info('---- DEBUG OUTPUT START ----')
@@ -158,6 +167,7 @@ async function run (parameters){
             core.info('---- Repository: '+repository)
             core.info('---- Token: '+token)
             core.info('---- Comment ID: '+commentID)
+            core.info('---- Context: '+JSON.stringify(context))
             core.info('---- DEBUG OUTPUT END ----')
         }
 
@@ -171,6 +181,7 @@ async function run (parameters){
                 issue_number: commentID,
                 body: commentBody,
             });
+            core.info('Adding scan results as comment to PR #'+commentID)
         } catch (error) {
             core.info(error);
         }
