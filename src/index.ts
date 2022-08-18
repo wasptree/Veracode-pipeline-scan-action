@@ -159,7 +159,7 @@ async function run (parameters){
         commentBody = commentBody.replace('===\n---','===\n<details><summary>details</summary><p>\n---')
         commentBody = commentBody.replace('---\n\n===','---\n</p></details>\n===')
         commentBody = commentBody.replace(/\n/g,'<br>')
-        commentBody = '&NBPS;<br>![](https://www.veracode.com/themes/veracode_new/library/img/veracode-black-hires.svg)<br>' + commentBody
+        commentBody = '<br>![](https://www.veracode.com/themes/veracode_new/library/img/veracode-black-hires.svg)<br>' + commentBody
 
         core.info('Comment Body '+commentBody)
 
