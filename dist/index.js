@@ -136,11 +136,12 @@ function run(parameters) {
             const repo = repository.split("/");
             const commentID = (_a = context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.number;
             //creating the body for the comment
-            let commentBody = scanCommandOutput;
-            commentBody = commentBody.substring(commentBody.indexOf('Scan Summary') + 1);
+            let commentBody = "![](https://www.veracode.com/themes/veracode_new/library/img/veracode-black-hires.svg)<br>";
+            commentBody = commentBody + scanCommandOutput;
+            commentBody = commentBody.substring(commentBody.indexOf('Scan Summary'));
             commentBody = commentBody.replace('===\n---', '===\n<details><summary>details</summary><p>\n---');
             commentBody = commentBody.replace('---\n\n===', '---\n</p></details>\n===');
-            commentBody = commentBody.replace('\n', '<br>');
+            commentBody = commentBody.replace('/\n/g', '<br>');
             if (parameters.debug == 1) {
                 core.info('---- DEBUG OUTPUT START ----');
                 core.info('---- index.ts / run() check if on PR  ----');

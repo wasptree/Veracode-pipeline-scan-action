@@ -154,11 +154,12 @@ async function run (parameters){
 
 
         //creating the body for the comment
-        let commentBody = scanCommandOutput
-        commentBody = commentBody.substring(commentBody.indexOf('Scan Summary') + 1 )
+        let commentBody = "![](https://www.veracode.com/themes/veracode_new/library/img/veracode-black-hires.svg)<br>"
+        commentBody = commentBody + scanCommandOutput
+        commentBody = commentBody.substring(commentBody.indexOf('Scan Summary'))
         commentBody = commentBody.replace('===\n---','===\n<details><summary>details</summary><p>\n---')
         commentBody = commentBody.replace('---\n\n===','---\n</p></details>\n===')
-        commentBody = commentBody.replace('\n','<br>')
+        commentBody = commentBody.replace('/\n/g','<br>')
 
 
         if (parameters.debug == 1 ){
