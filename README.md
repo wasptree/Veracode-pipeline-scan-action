@@ -12,13 +12,6 @@ For more information on Pipeline Scan visit Veracode Help Center Page: https://h
 
 ## Usage
 
-<<<<<<< HEAD
-Intended usage is to add a job to your CI/CD pipeline, after a build job, uploads the "application", scans it and returns the results.  
-A build can be failed upon findings, as well the action allows you to generate a new baseline file and commit it back into a different branch of yyour repository where it can be used to sort out previous findings in order to report on net new findings. Please refere to the Veracode documentation [here] (https://docs.veracode.com/r/Using_a_Pipeline_Scan_Baseline_File).  
-If the action will run within a PR, it will automatically add a comment with all results to the PR. This is done for easy review and approval processes. 
-  
-The tool will need some information passed to it as arguments:  
-=======
 The latest version will always be available at `https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip`. This ZIP file contains this README, and a single JAR (`pipeline-scan.jar`) that contains all dependencies besides the required Java 8+ JVM.
 
 Intended usage is to add a job to your CI/CD pipeline, after a build job, that downloads and unzips the tool, and then runs the JAR via `java -jar`. The status code returned depends on the results of the scan:
@@ -31,15 +24,8 @@ Intended usage is to add a job to your CI/CD pipeline, after a build job, that d
   * If the scan does not complete within the user specified time (via the `--timeout` option), the tool will return -3 and the pipeline should fail.
 
 The tool will need some information passed to it as command line arguments (many are optional):
->>>>>>> 34236f69f66343a7699c78546339d736cc92f66a
 
 * Required
-  * vid
-    * the Veracode API ID
-  * vkey
-    * the Veracode API Secret Key
-  * file
-    * 
   * One and only one of the following 2 options are allowed:
   * `--file <filename>`
     * The build artifact file to upload and scan
