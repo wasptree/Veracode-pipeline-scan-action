@@ -152,7 +152,6 @@ function run(parameters) {
             }
             try {
                 const octokit = github.getOctokit(token);
-                const commentBody = scanCommandOutput + "\n";
                 const { data: comment } = yield octokit.rest.issues.createComment({
                     owner: repo[0],
                     repo: repo[1],

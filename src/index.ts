@@ -173,7 +173,6 @@ async function run (parameters){
 
         try {
             const octokit = github.getOctokit(token);
-            const commentBody = scanCommandOutput + "\n";
 
             const { data: comment } = await octokit.rest.issues.createComment({
                 owner: repo[0],
