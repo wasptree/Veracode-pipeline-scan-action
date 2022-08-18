@@ -12,14 +12,11 @@ For more information on Pipeline Scan visit Veracode Help Center Page: https://h
 
 ## Usage
 
-Intended usage is to add a job to your CI/CD pipeline, after a build job, that downloads and unzips the tool, and then runs the JAR via `java -jar`. The status code returned depends on the results of the scan:
+Intended usage is to add a job to your CI/CD pipeline, after a build job, uploads the "application", scans it and returns the results.  
+A build can be failed upon findings, as well the action allows you to generate a new baseline file and commit it back into a different branch of yyour repository where it can be used to sort out previous findings in order to report on net new findings. Please refere to the Veracode documentation [here] (https://docs.veracode.com/r/Using_a_Pipeline_Scan_Baseline_File).  
+If the action will run within a PR, it will automatically add a comment with all results to the PR. This is done for easy review and approval processes. 
 
-* When the Pipeline Scan has completed:
-  * If no issues are found, the tool returns a status code of 0 and the pipeline should pass.
-  * If issues are found, the tool returns a status code equal to the number of flaws found (up to 200), and the pipeline should fail.
-  * If the scan fails (network issues, invalid API credentials, etc), the tool will return -1 and the pipeline should fail.
-  * If the scan does not complete within the service's maximum allowed time, the tool will return -2 and the pipeline should fail.
-  * If the scan does not complete within the user specified time (via the `--timeout` option), the tool will return -3 and the pipeline should fail.
+
 
 The tool will need some information passed to it as command line arguments (many are optional):
 
