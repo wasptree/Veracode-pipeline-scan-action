@@ -15,12 +15,16 @@ For more information on Pipeline Scan visit Veracode Help Center Page: https://h
 Intended usage is to add a job to your CI/CD pipeline, after a build job, uploads the "application", scans it and returns the results.  
 A build can be failed upon findings, as well the action allows you to generate a new baseline file and commit it back into a different branch of yyour repository where it can be used to sort out previous findings in order to report on net new findings. Please refere to the Veracode documentation [here] (https://docs.veracode.com/r/Using_a_Pipeline_Scan_Baseline_File).  
 If the action will run within a PR, it will automatically add a comment with all results to the PR. This is done for easy review and approval processes. 
-
-
-
-The tool will need some information passed to it as command line arguments (many are optional):
+  
+The tool will need some information passed to it as arguments:  
 
 * Required
+  * vid
+    * the Veracode API ID
+  * vkey
+    * the Veracode API Secret Key
+  * file
+    * 
   * One and only one of the following 2 options are allowed:
   * `--file <filename>`
     * The build artifact file to upload and scan
