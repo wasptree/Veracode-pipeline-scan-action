@@ -6,6 +6,8 @@ import { checkParameters } from './check-parameters';
 import { commitBasline } from './commit';
 import { json } from 'stream/consumers';
 import { stringify } from 'querystring';
+import { env } from "process";
+import * as github from '@actions/github'
 
 // get input params
 let parameters = {}
@@ -112,6 +114,7 @@ parameters['fail_build'] = fail_build
 
 
 
+
 async function run (parameters){
     downloadJar()
     let scanCommandValue = await checkParameters(parameters)
@@ -136,6 +139,60 @@ async function run (parameters){
         core.info(commitCommandOutput)
     }
 
+    core.info('check if we run on a pull request')
+    let pullRequest = process.env.GITHUB_REF
+    let isPR = pullRequest?.indexOf("pull")
+
+    if ( isPR >= 1 ){
+        core.info("This run is part of a PR, should add some PR comment")
+
+        const context = github.context
+        const repository = process.env.GITHUB_REPOSITORY
+        const token = core.getInput("token")
+        const repo = repository.split("/");
+        const commentID = context.payload.pull_request?.number
+
+
+        //creating the body for the comment
+        let commentBody = scanCommandOutput
+        commentBody = commentBody.substring(commentBody.indexOf('Scan Summary'))
+        commentBody = commentBody.replace('===\n---','===\n<details><summary>details</summary><p>\n---')
+        commentBody = commentBody.replace('---\n\n===','---\n</p></details>\n===')
+        commentBody = commentBody.replace(/\n/g,'<br>')
+        commentBody = '<br>![](https://www.veracode.com/themes/veracode_new/library/img/veracode-black-hires.svg)<br>' + commentBody
+
+        core.info('Comment Body '+commentBody)
+
+
+        if (parameters.debug == 1 ){
+            core.info('---- DEBUG OUTPUT START ----')
+            core.info('---- index.ts / run() check if on PR  ----')
+            core.info('---- Repository: '+repository)
+            core.info('---- Token: '+token)
+            core.info('---- Comment ID: '+commentID)
+            //core.info('---- Context: '+JSON.stringify(context))
+            core.info('---- DEBUG OUTPUT END ----')
+        }
+
+        try {
+            const octokit = github.getOctokit(token);
+
+            const { data: comment } = await octokit.rest.issues.createComment({
+                owner: repo[0],
+                repo: repo[1],
+                issue_number: commentID,
+                body: commentBody,
+            });
+            core.info('Adding scan results as comment to PR #'+commentID)
+        } catch (error) {
+            core.info(error);
+        }
+
+    }
+    else {
+        core.info('We are not running on a pull request')
+    }
+
     if ( parameters.fail_build == "true" ){
         core.info('Check if we need to fail the build')
         let failBuild = scanCommandOutput.indexOf("FAILURE")
@@ -144,7 +201,7 @@ async function run (parameters){
             core.info('---- DEBUG OUTPUT START ----')
             core.info('---- index.ts / run() check if we need to fail the build ----')
             core.info('---- Fail build value found : '+failBuild)
-            core.info('---- DEBUG OUTPUT END ----')
+            core.info('---- DEBUG OUTPUT END ----')     
         }
 
 
