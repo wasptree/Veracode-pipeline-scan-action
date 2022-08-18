@@ -159,7 +159,9 @@ async function run (parameters){
         commentBody = commentBody.substring(commentBody.indexOf('Scan Summary'))
         commentBody = commentBody.replace('===\n---','===\n<details><summary>details</summary><p>\n---')
         commentBody = commentBody.replace('---\n\n===','---\n</p></details>\n===')
-        commentBody = commentBody.replace('/\n/g','<br>')
+        commentBody = commentBody.replace(/'\n'/g,'<br>')
+
+        core.info('Comment Body '+commentBody)
 
 
         if (parameters.debug == 1 ){
@@ -168,7 +170,7 @@ async function run (parameters){
             core.info('---- Repository: '+repository)
             core.info('---- Token: '+token)
             core.info('---- Comment ID: '+commentID)
-            core.info('---- Context: '+JSON.stringify(context))
+            //core.info('---- Context: '+JSON.stringify(context))
             core.info('---- DEBUG OUTPUT END ----')
         }
 
