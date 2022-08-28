@@ -10,7 +10,7 @@ import { env } from "process";
 import * as github from '@actions/github'
 
 // get input params
-let parameters = {}
+let parameters:any = {}
 
 
 
@@ -115,7 +115,7 @@ parameters['fail_build'] = fail_build
 
 
 
-async function run (parameters){
+async function run (parameters:any){
     downloadJar()
     let scanCommandValue = await checkParameters(parameters)
 
@@ -134,23 +134,23 @@ async function run (parameters){
 
     if ( parameters.store_baseline_file == 'true'){
         core.info('Baseline File should be stored')
-        let commitCommandOutput = await commitBasline(parameters)
+        let commitCommandOutput:any = await commitBasline(parameters)
         core.info('Git Command Output')
         core.info(commitCommandOutput)
     }
 
     core.info('check if we run on a pull request')
     let pullRequest = process.env.GITHUB_REF
-    let isPR = pullRequest?.indexOf("pull")
+    let isPR:any = pullRequest?.indexOf("pull")
 
     if ( isPR >= 1 ){
         core.info("This run is part of a PR, should add some PR comment")
 
         const context = github.context
-        const repository = process.env.GITHUB_REPOSITORY
+        const repository:any = process.env.GITHUB_REPOSITORY
         const token = core.getInput("token")
         const repo = repository.split("/");
-        const commentID = context.payload.pull_request?.number
+        const commentID:any = context.payload.pull_request?.number
 
 
         //creating the body for the comment
@@ -184,7 +184,7 @@ async function run (parameters){
                 body: commentBody,
             });
             core.info('Adding scan results as comment to PR #'+commentID)
-        } catch (error) {
+        } catch (error:any) {
             core.info(error);
         }
 

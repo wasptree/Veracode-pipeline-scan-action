@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 import { runScan, getPolicyFile } from './pipeline-scan'
 
 
-export async function checkParameters (parameters):Promise<string>  {
+export async function checkParameters (parameters:any):Promise<string>  {
 
 
     if (parameters.debug == 1 ){

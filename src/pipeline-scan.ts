@@ -14,7 +14,7 @@ export function downloadJar ()  {
         core.info('pipeline-scan.jar downloaded')
         
     }
-    catch(error){
+    catch(error:any){
         core.info(`Status Code: ${error.status} with '${error.message}'`);
         
     }
@@ -24,13 +24,13 @@ export function downloadJar ()  {
         const getUnzipOutput = execSync(unzipJar).toString();
         core.info('pipeline_scan.jar unzipped')
     }
-    catch(error){
+    catch(error:any){
         console.log(`Status Code: ${error.status} with '${error.message}'`);
         core.info("Pipeline-scan-LATEST.zip could not be unzipped.")
     }
 }
 
-export function runScan (scanCommand,parameters){
+export function runScan (scanCommand:any,parameters:any){
     
 
     if (parameters.debug == 1 ){
@@ -45,13 +45,13 @@ export function runScan (scanCommand,parameters){
     let commandOutput = ''
     try {
         execSync(scanCommand)
-    } catch (ex){
+    } catch (ex:any){
         commandOutput = ex.stdout.toString()
     }
     return commandOutput
 }
 
-export function getPolicyFile (scanCommand,parameters){
+export function getPolicyFile (scanCommand:any,parameters:any){
     let commandOutput = execSync(scanCommand)
 
     if (parameters.debug == 1 ){

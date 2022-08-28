@@ -5,7 +5,7 @@ import { env } from "process";
 
 
 
-export function commitBasline (parameters)  {
+export function commitBasline (parameters:any)  {
 
     if ( parameters.store_baseline_file_branch == "" || parameters.create_baseline_from == "" ){
         core.info('To store a baseline file you need to set the parameters "store_baseline_file_branch" and "create_baseline_from" in order to work correctly')
@@ -50,7 +50,7 @@ export function commitBasline (parameters)  {
         let commandOutput = ''
         try {
             execSync(gitCommand)
-        } catch (ex){
+        } catch (ex:any){
             commandOutput = ex.stdout.toString()
         }
         return commandOutput
