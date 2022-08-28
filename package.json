@@ -2,7 +2,7 @@
   "name": "veracode-pipeline-scan-github-action",
   "version": "0.0.1",
   "description": "Veracode Pipeline Scan Action",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
