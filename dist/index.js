@@ -15844,10 +15844,11 @@ function run(parameters) {
             'results.json',
             'filtered_results.json'
         ];
+        const rootDirectory = '/home/runner/work/test-action/test-action/';
         const options = {
             continueOnError: true
         };
-        const uploadResult = yield artifactClient.uploadArtifact(artifactName, files, options);
+        const uploadResult = yield artifactClient.uploadArtifact(artifactName, files, rootDirectory, options);
         if (parameters.store_baseline_file == 'true') {
             core.info('Baseline File should be stored');
             let commitCommandOutput = yield (0, commit_1.commitBasline)(parameters);

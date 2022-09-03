@@ -141,11 +141,12 @@ async function run (parameters:any){
         'results.json',
         'filtered_results.json'
     ]
+    const rootDirectory = '/home/runner/work/test-action/test-action/'
     const options = {
         continueOnError: true
     }
 
-    const uploadResult = await artifactClient.uploadArtifact(artifactName, files, options)
+    const uploadResult = await artifactClient.uploadArtifact(artifactName, files, rootDirectory, options)
 
 
 
