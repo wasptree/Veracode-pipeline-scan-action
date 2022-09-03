@@ -15838,18 +15838,17 @@ function run(parameters) {
         core.info(scanCommandOutput);
         //store output files as artifacts
         const artifact = __nccwpck_require__(1413);
-        const artifactClient1 = artifact.create();
-        const artifactName1 = 'Veracode Pipeline Scan Full results';
-        const files1 = 'results.json';
-        const artifactClient2 = artifact.create();
-        const artifactName2 = 'Veracode Pipeline Scan Filtered results';
-        const files2 = 'filtered_results.json';
+        const artifactClient = artifact.create();
+        const artifactName = 'Veracode Pipeline-Scan Results';
+        const files = [
+            'results.json',
+            'filtered_results.json'
+        ];
         const rootDirectory = '/home/runner/work/test-action/test-action/';
         const options = {
             continueOnError: true
         };
-        const uploadResult1 = yield artifactClient1.uploadArtifact(artifactName1, files1, rootDirectory, options);
-        const uploadResult2 = yield artifactClient2.uploadArtifact(artifactName2, files2, rootDirectory, options);
+        const uploadResult = yield artifactClient.uploadArtifact(artifactName, files, rootDirectory, options);
         if (parameters.store_baseline_file == 'true') {
             core.info('Baseline File should be stored');
             let commitCommandOutput = yield (0, commit_1.commitBasline)(parameters);
