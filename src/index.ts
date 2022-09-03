@@ -135,22 +135,21 @@ async function run (parameters:any){
 
     //store output files as artifacts
     const artifact = require('@actions/artifact');
-    const artifactClient = artifact.create()
-    const artifactName = 'Veracode Pipeline Artifacts';
-    const files = [
-        'results.json',
-        'filtered_results.json'
-    ]
+    const artifactClient1 = artifact.create()
+    const artifactName1 = 'Veracode Pipeline Scan Full results';
+    const files1 = 'results.json'
+
+    const artifactClient2 = artifact.create()
+    const artifactName2 = 'Veracode Pipeline Scan Filtered results';
+    const files2 = 'filtered_results.json'
+
     const rootDirectory = '/home/runner/work/test-action/test-action/'
     const options = {
         continueOnError: true
     }
 
-    const uploadResult = await artifactClient.uploadArtifact(artifactName, files, rootDirectory, options)
-
-
-
-
+    const uploadResult1 = await artifactClient1.uploadArtifact(artifactName1, files1, rootDirectory, options)
+    const uploadResult2 = await artifactClient2.uploadArtifact(artifactName2, files2, rootDirectory, options)
 
 
     if ( parameters.store_baseline_file == 'true'){
