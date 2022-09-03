@@ -1,5 +1,6 @@
 import { readFileSync, existsSync} from 'fs';
 import * as core from '@actions/core'
+import {create, UploadOptions} from '@actions/artifact'
 import { downloadJar } from "./pipeline-scan";
 import { runScan } from "./pipeline-scan";
 import { checkParameters } from './check-parameters';
@@ -131,6 +132,25 @@ async function run (parameters:any){
 
     core.info('Pipeline Scan Output')
     core.info(scanCommandOutput)
+
+    //store output files as artifacts
+    const artifact = require('@actions/artifact');
+    const artifactClient = artifact.create()
+    const artifactName = 'Veracode Pipeline Artifacts';
+    const files = [
+        'results.json',
+        'filtered_results.json'
+    ]
+    const options = {
+        continueOnError: true
+    }
+
+    const uploadResult = await artifactClient.uploadArtifact(artifactName, files, options)
+
+
+
+
+
 
     if ( parameters.store_baseline_file == 'true'){
         core.info('Baseline File should be stored')
