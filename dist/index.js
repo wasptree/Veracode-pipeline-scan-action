@@ -15683,7 +15683,7 @@ function commitBasline(parameters) {
         //git remote set-url origin https://${process.env.GITHUB_ACTOR}:${parameters.token}@github.com/${process.env.GITHUB_REPOSITORY}.git
         let gitCommand = `git config --global user.name "${process.env.GITHUB_ACTOR}"
                             git config --global user.email "username@users.noreply.github.com"
-                            git pull
+                            git pull ${parameters.store_baseline_file_branch}
                             git add -f "${baselineFileName}"
                             git commit -a -m "Veracode Baseline File push from pipeline"
                             git push origin HEAD:${parameters.store_baseline_file_branch}
