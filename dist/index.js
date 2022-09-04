@@ -15679,7 +15679,8 @@ function commitBasline(parameters) {
             core.info('---- Baseline file generated from ' + baselineFileName);
             core.info('---- DEBUG OUTPUT END ----');
         }
-        let gitCommand = `git config --global user.name "${process.env.CI_COMMIT_AUTHOR}"
+        //CI_COMMIT_AUTHOR
+        let gitCommand = `git config --global user.name "${process.env.GITHUB_ACTOR}"
                             git config --global user.email "username@users.noreply.github.com"
                             git add -f "${baselineFileName}"
                             git commit -a -m "Veracode Baseline File push from pipeline"
