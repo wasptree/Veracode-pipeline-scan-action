@@ -15680,11 +15680,11 @@ function commitBasline(parameters) {
             core.info('---- DEBUG OUTPUT END ----');
         }
         //CI_COMMIT_AUTHOR
+        //git remote set-url origin https://${process.env.GITHUB_ACTOR}:${parameters.token}@github.com/${process.env.GITHUB_REPOSITORY}.git
         let gitCommand = `git config --global user.name "${process.env.GITHUB_ACTOR}"
                             git config --global user.email "username@users.noreply.github.com"
                             git add -f "${baselineFileName}"
                             git commit -a -m "Veracode Baseline File push from pipeline"
-                            git remote set-url origin https://${process.env.GITHUB_ACTOR}:${parameters.token}@github.com/${process.env.GITHUB_REPOSITORY}.git
                             git push origin HEAD:${parameters.store_baseline_file_branch}
                             `;
         core.info('Git Command: ' + gitCommand);
