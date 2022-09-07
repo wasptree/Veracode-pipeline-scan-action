@@ -36,7 +36,8 @@ export function commitBasline (parameters:any)  {
         let gitCommand = `  git config --global user.name "${ process.env.GITHUB_ACTOR }"
                             git config --global user.email "username@users.noreply.github.com"
                             git pull origin
-                            git add -f "${baselineFileName}"
+                            stat "${baselineFileName}"
+                            git add "${baselineFileName}"
                             git commit -m "Veracode Baseline File push from pipeline"
                             git push origin ${parameters.store_baseline_file_branch}
                             `
