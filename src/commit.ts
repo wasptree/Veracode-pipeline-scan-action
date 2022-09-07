@@ -33,11 +33,11 @@ export function commitBasline (parameters:any)  {
         //git pull https://github.com/${process.env.GITHUB_REPOSITORY}.git ${parameters.store_baseline_file_branch}
         //HEAD:${parameters.store_baseline_file_branch}
         //git config pull.rebase true
-        let gitCommand = `  git status
-                            git config --global user.name "${ process.env.GITHUB_ACTOR }"
+        let gitCommand = `  git config --global user.name "${ process.env.GITHUB_ACTOR }"
                             git config --global user.email "username@users.noreply.github.com"
+                            git pull origin
                             git add -f "${baselineFileName}"
-                            git commit -a -m "Veracode Baseline File push from pipeline"
+                            git commit -m "Veracode Baseline File push from pipeline"
                             git push origin ${parameters.store_baseline_file_branch}
                             `
 
