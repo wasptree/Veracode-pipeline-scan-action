@@ -35,8 +35,10 @@ export function commitBasline (parameters:any)  {
         //git config pull.rebase true
         let gitCommand = `  git config --global user.name "${ process.env.GITHUB_ACTOR }"
                             git config --global user.email "username@users.noreply.github.com"
-                            git pull origin ${parameters.store_baseline_file_branch} || echo "Couldn't find remote branch"
                             git add "${baselineFileName}"
+                            git stash
+                            git pull origin ${parameters.store_baseline_file_branch} || echo "Couldn't find remote branch"
+                            git checkout stash -- .
                             git commit -m "Veracode Baseline File push from pipeline"
                             git push origin HEAD:${parameters.store_baseline_file_branch} --force-with-lease
                             `
